@@ -4,15 +4,32 @@
  */
 package studikasus;
 
+import java.util.*;
+import java.io.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+
 /**
  *
  * @author riady
  */
 public class MainWindow extends javax.swing.JFrame {
+    private MainMenu mainMenu;
 
     /**
      * Creates new form MainWindow
      */
+    
+    public static String toString(char[] a)
+    {
+        // Creating object of String class
+        String string = new String(a);
+ 
+        return string;
+    }
+    
     public MainWindow() {
         initComponents();
     }
@@ -57,6 +74,11 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         jButton1.setText("Log In");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Admin");
 
@@ -113,6 +135,67 @@ public class MainWindow extends javax.swing.JFrame {
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String userID = toString(this.jPasswordField1.getPassword());
+        String nama = this.jTextField2.getText();
+        try {
+            int umur = Integer.parseInt(this.jTextField3.getText());
+        } catch (Exception e) {
+            
+        }
+        boolean masuk = false;
+        boolean admin = false;
+        boolean aktif = false;
+
+        String path = new File("").getAbsolutePath()+ "\\src\\studikasus\\Akun.txt";
+        System.out.println(path);
+        File myFile = new File(path);
+        
+        try {
+            FileReader fr = new FileReader(myFile);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(" ");
+
+                if (userID.equals("003") && nama.toLowerCase().equals("dani")) {
+                    admin = true;
+                    break;
+                } else if (userID.equals(data[0]) && nama.toLowerCase().equals(data[1].toLowerCase())) {
+                    masuk = true;
+                    if (data[3].equals("AKTIF")) aktif = true;
+                    break;
+                }
+            }
+            br.close();
+            fr.close();
+        } catch (Exception e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        
+        if (masuk && aktif) {
+            JFrame frame = new MainMenu();
+            frame.setVisible(true);
+            frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            this.jPasswordField1.setText("");
+            this.jTextField2.setText("");
+            this.jTextField3.setText("");
+
+        } else if (admin) {
+            JFrame frame = new AdminMenu();
+            frame.setVisible(true);
+            frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            this.jPasswordField1.setText("");
+            this.jTextField2.setText("");
+            this.jTextField3.setText("");
+        }else if (masuk && aktif == false){
+            JOptionPane.showMessageDialog(this, "Akun Tidak AKTIF");
+        } else {
+            JOptionPane.showMessageDialog(this, "Akun Tidak Ditemukan");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
