@@ -46,7 +46,7 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("JalaFlix");
+        setTitle("JalaFlixMenu");
 
         jLabel1.setText("Selamat Datang :");
 

@@ -144,7 +144,7 @@ public class MainWindow extends javax.swing.JFrame {
 
             //if found frame that I want I can close or any you want
             //GUIS.CheckForCustomer is my specific frame name that I want to close.
-            if(specificFrameName.equals("Main Menu")){
+            if(specificFrameName.equals("JalaFlixMenu")){
                 //close the frame
                 fr.dispose();
             }
