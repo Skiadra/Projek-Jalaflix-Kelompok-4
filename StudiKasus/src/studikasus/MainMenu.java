@@ -7,8 +7,10 @@ package studikasus;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -244,6 +246,7 @@ public class MainMenu extends javax.swing.JFrame {
  
         // implement windowClosing method
         public void windowClosing(WindowEvent e) {
+            //READ FILE
             String path = new File("").getAbsolutePath()+ "\\src\\studikasus\\Akun.txt";
             File myFile = new File(path);
             String temp = "";
@@ -266,6 +269,18 @@ public class MainMenu extends javax.swing.JFrame {
                 System.out.println("An error occurred.");
                 f.printStackTrace();
             }
+            
+            //WRITE FILE
+            try {
+                FileWriter fw = new FileWriter(myFile);
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.write(temp);
+                bw.close();
+                fw.close();
+            } catch (Exception f) {
+                
+            } 
+            
             System.exit(0);
         }
     }
