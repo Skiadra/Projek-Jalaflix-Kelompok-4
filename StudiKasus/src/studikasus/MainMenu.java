@@ -27,6 +27,8 @@ public class MainMenu extends javax.swing.JFrame {
      */
     public MainMenu(String[] data, int umur) {
         initComponents();
+        this.setResizable(false);
+
         dataAkun = data;
         this.umur = umur;
         jLabel4.setText(dataAkun[1]);
@@ -198,7 +200,25 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        String path = new File("").getAbsolutePath()+ "\\src\\studikasus\\HistoriFilm.txt";
+            File myFile = new File(path);
+            String temp = "";
+            try {
+                FileReader fr = new FileReader(myFile);
+                BufferedReader br = new BufferedReader(fr);
+                String line;
+                while ((line = br.readLine()) != null) {
+                    temp += line;
+                    temp += ", ";
+                }
+                br.close();
+                fr.close();
+            } catch (Exception f) {
+                System.out.println("An error occurred.");
+                f.printStackTrace();
+            }
+            
+            JOptionPane.showMessageDialog(this, temp);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**

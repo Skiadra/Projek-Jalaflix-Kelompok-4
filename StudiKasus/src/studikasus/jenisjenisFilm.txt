@@ -1,0 +1,10 @@
+A. Action
+B. Horor
+C. Misteri
+D. Romance
+E. SciFi
+F. Thriller
+G. Adventure
+H. Comedy
+I. Drama
+J. Fantasi

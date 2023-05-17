@@ -34,6 +34,7 @@ public class MainWindow extends javax.swing.JFrame {
     
     public MainWindow() {
         initComponents();
+        this.setResizable(false);
     }
 
     /**
