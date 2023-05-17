@@ -49,7 +49,43 @@ public class MainMenu extends javax.swing.JFrame {
         }
         jLabel5.setText(pel.kategoriPel.toUpperCase());
         dataAkun[4] = pel.kategoriPel.toUpperCase();
-        System.out.println(pel.kategoriPel);
+    }
+    
+    private void saveData() {
+        //READ FILE
+        String path = new File("").getAbsolutePath()+ "\\src\\studikasus\\Akun.txt";
+        File myFile = new File(path);
+        String temp = "";
+
+        try {
+            FileReader fr = new FileReader(myFile);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (!line.contains(dataAkun[0])) {
+                    temp += line;
+                    temp += "\n";
+                }
+            }
+            temp += String.join(" ", dataAkun) + "\n";
+            System.out.println(temp);
+            br.close();
+            fr.close();
+        } catch (Exception f) {
+            System.out.println("An error occurred.");
+            f.printStackTrace();
+        }
+
+        //WRITE FILE
+        try {
+            FileWriter fw = new FileWriter(myFile);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(temp);
+            bw.close();
+            fw.close();
+        } catch (Exception f) {
+
+        } 
     }
 
     /**
@@ -172,7 +208,10 @@ public class MainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        WatchMovie wm = new WatchMovie(dataAkun[4]);
+        wm.setVisible(true);
+        wm.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        saveData();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -218,7 +257,7 @@ public class MainMenu extends javax.swing.JFrame {
                 f.printStackTrace();
             }
             
-            JOptionPane.showMessageDialog(this, temp);
+            JOptionPane.showMessageDialog(this, temp, "Histori", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
@@ -266,42 +305,9 @@ public class MainMenu extends javax.swing.JFrame {
  
         // implement windowClosing method
         public void windowClosing(WindowEvent e) {
-            //READ FILE
-            String path = new File("").getAbsolutePath()+ "\\src\\studikasus\\Akun.txt";
-            File myFile = new File(path);
-            String temp = "";
-
-            try {
-                FileReader fr = new FileReader(myFile);
-                BufferedReader br = new BufferedReader(fr);
-                String line;
-                while ((line = br.readLine()) != null) {
-                    if (!line.contains(dataAkun[0])) {
-                        temp += line;
-                        temp += "\n";
-                    }
-                }
-                temp += String.join(" ", dataAkun) + "\n";
-                System.out.println(temp);
-                br.close();
-                fr.close();
-            } catch (Exception f) {
-                System.out.println("An error occurred.");
-                f.printStackTrace();
-            }
+            saveData();
             
-            //WRITE FILE
-            try {
-                FileWriter fw = new FileWriter(myFile);
-                BufferedWriter bw = new BufferedWriter(fw);
-                bw.write(temp);
-                bw.close();
-                fw.close();
-            } catch (Exception f) {
-                
-            } 
-            
-            System.exit(0);
+            window.dispose();
         }
     }
     
