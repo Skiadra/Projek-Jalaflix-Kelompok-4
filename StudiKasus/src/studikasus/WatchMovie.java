@@ -24,6 +24,7 @@ public class WatchMovie extends javax.swing.JFrame {
     public WatchMovie() {
         initComponents();
         addWindowListener(new WatchMovie.CustomWindowAdapter(this));
+        this.setResizable(false);
 
     }
 
@@ -60,6 +61,8 @@ public class WatchMovie extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(730, 400));
+        setMinimumSize(new java.awt.Dimension(730, 400));
         getContentPane().setLayout(null);
 
         jPanel2.setBackground(new java.awt.Color(0, 51, 51));
@@ -77,7 +80,7 @@ public class WatchMovie extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(249, 249, 249)
                 .addComponent(jLabel1)
-                .addContainerGap(260, Short.MAX_VALUE))
+                .addContainerGap(400, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -88,9 +91,10 @@ public class WatchMovie extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(-40, 0, 770, 90);
+        jPanel2.setBounds(-40, 0, 910, 90);
 
         jPanel3.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel3.setMaximumSize(new java.awt.Dimension(720, 290));
 
         jLabel2.setFont(new java.awt.Font("Source Sans Pro Light", 1, 18)); // NOI18N
         jLabel2.setText("Pilih tontonan mu");
