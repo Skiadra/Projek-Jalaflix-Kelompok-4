@@ -18,6 +18,7 @@ import javax.swing.JPasswordField;
  */
 public class MainWindow extends javax.swing.JFrame {
     private MainMenu mainMenu;
+    private String[] dataAkun = {};
 
     /**
      * Creates new form MainWindow
@@ -173,9 +174,11 @@ public class MainWindow extends javax.swing.JFrame {
                 String[] data = line.split(" ");
 
                 if (userID.equals("003") && nama.toLowerCase().equals("dani")) {
+                    dataAkun = data;
                     admin = true;
                     break;
                 } else if (userID.equals(data[0]) && nama.toLowerCase().equals(data[1].toLowerCase())) {
+                    dataAkun = data;
                     masuk = true;
                     if (data[3].equals("AKTIF")) aktif = true;
                     kategori = data[4];
@@ -190,11 +193,8 @@ public class MainWindow extends javax.swing.JFrame {
         }
         
         if (masuk && aktif) {
-            JFrame frame = new MainMenu();
+            MainMenu frame = new MainMenu(dataAkun, Integer.parseInt(jTextField3.getText()));
             frame.setVisible(true);
-            MainMenu.inst.lbl.setText(nama.toUpperCase());
-            MainMenu.inst.lbl2.setText(kategori);
-            MainMenu.inst.kategori = kategori;
             frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             this.jPasswordField1.setText("");
             this.jTextField2.setText("");
@@ -203,7 +203,6 @@ public class MainWindow extends javax.swing.JFrame {
         } else if (admin) {
             JFrame frame = new AdminMenu();
             frame.setVisible(true);
-            MainMenu.inst.lbl.setText(nama.toUpperCase());
             frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             this.jPasswordField1.setText("");
             this.jTextField2.setText("");

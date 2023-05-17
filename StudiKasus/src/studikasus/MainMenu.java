@@ -4,25 +4,48 @@
  */
 package studikasus;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author riady
  */
 public class MainMenu extends javax.swing.JFrame {
-    public static MainMenu inst;
-    public JLabel lbl;
-    public JLabel lbl2;
-    public String kategori;
+    String[] dataAkun = new String[5];
+    int umur = 0;
+    Pelanggan pel;
     /**
      * Creates new form MainMenu
      */
-    public MainMenu() {
+    public MainMenu(String[] data, int umur) {
         initComponents();
-        inst = this;
-        lbl = jLabel4;
-        lbl2 = jLabel5;
+        dataAkun = data;
+        this.umur = umur;
+        jLabel4.setText(dataAkun[1]);
+        jLabel5.setText(dataAkun[4]);
+        createInstance(dataAkun[4]);
+        addWindowListener(new CustomWindowAdapter(this));
+    }
+    
+    private void createInstance(String s) {
+        try {
+            switch (s.toLowerCase()) {
+                case "gold": pel = new Gold( Integer.parseInt(dataAkun[0]), dataAkun[1], umur, dataAkun[2], dataAkun[3]);break;
+                case "reguler": pel = new Reguler(Integer.parseInt(dataAkun[0]), dataAkun[1], umur, dataAkun[2], dataAkun[3]);break;
+                case "platinum": pel = new Platinum(Integer.parseInt(dataAkun[0]), dataAkun[1], umur, dataAkun[2], dataAkun[3]);break;
+            }
+        } catch (UmurNegatifException e) {
+            
+        }
+        jLabel5.setText(pel.kategoriPel.toUpperCase());
+        dataAkun[4] = pel.kategoriPel.toUpperCase();
+        System.out.println(pel.kategoriPel);
     }
 
     /**
@@ -93,17 +116,18 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(17, 17, 17)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)))
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 47, Short.MAX_VALUE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -148,11 +172,27 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        if (pel.kategoriPel.toLowerCase().equals("reguler")) {
+            pel.kategoriPel = "gold";
+            createInstance(pel.kategoriPel);
+        } else if (pel.kategoriPel.toLowerCase().equals("gold")) {
+            pel.kategoriPel = "platinum";
+            createInstance(pel.kategoriPel);
+        } else {
+            JOptionPane.showMessageDialog(this, "Tidak bisa upgrade lagi!");
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        if (pel.kategoriPel.toLowerCase().equals("platinum")) {
+            pel.kategoriPel = "gold";
+            createInstance(pel.kategoriPel);
+        } else if (pel.kategoriPel.toLowerCase().equals("gold")) {
+            pel.kategoriPel = "reguler";
+            createInstance(pel.kategoriPel);
+        } else {
+            JOptionPane.showMessageDialog(this, "Tidak bisa downgrade lagi!");
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -189,11 +229,46 @@ public class MainMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainMenu().setVisible(true);
+//                new MainMenu().setVisible(true);
             }
         });
     }
     
+    class CustomWindowAdapter extends WindowAdapter {
+ 
+        MainMenu window = null;
+ 
+        CustomWindowAdapter(MainMenu window) {
+            this.window = window;
+        }
+ 
+        // implement windowClosing method
+        public void windowClosing(WindowEvent e) {
+            String path = new File("").getAbsolutePath()+ "\\src\\studikasus\\Akun.txt";
+            File myFile = new File(path);
+            String temp = "";
+
+            try {
+                FileReader fr = new FileReader(myFile);
+                BufferedReader br = new BufferedReader(fr);
+                String line;
+                while ((line = br.readLine()) != null) {
+                    if (!line.contains(dataAkun[0])) {
+                        temp += line;
+                        temp += "\n";
+                    }
+                }
+                temp += String.join(" ", dataAkun) + "\n";
+                System.out.println(temp);
+                br.close();
+                fr.close();
+            } catch (Exception f) {
+                System.out.println("An error occurred.");
+                f.printStackTrace();
+            }
+            System.exit(0);
+        }
+    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
