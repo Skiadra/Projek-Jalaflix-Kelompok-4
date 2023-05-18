@@ -27,6 +27,7 @@ public class MainMenu extends javax.swing.JFrame {
      */
     public MainMenu(String[] data, int umur) {
         initComponents();
+        this.setLocationRelativeTo(null);
         this.setResizable(false);
 
         dataAkun = data;

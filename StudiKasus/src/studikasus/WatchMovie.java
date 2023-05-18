@@ -28,6 +28,7 @@ public class WatchMovie extends javax.swing.JFrame {
     public WatchMovie(String kategori) {
         this.kategori = kategori;
         initComponents();
+        this.setLocationRelativeTo(null);
         addWindowListener(new WatchMovie.CustomWindowAdapter(this));
         
         //Set Banyaknya Film
@@ -53,6 +54,11 @@ public class WatchMovie extends javax.swing.JFrame {
         
         CB.setMaximumRowCount(8);
         CB.setModel(new javax.swing.DefaultComboBoxModel(namaFilm));
+        
+        jLabel7.setText(listFilm[0].getFilmDetail(1));
+        jLabel8.setText(listFilm[0].getFilmDetail(2));
+        jLabel9.setText(listFilm[0].getFilmDetail(3));
+        jLabel10.setText(listFilm[0].getFilmDetail(4));
         this.setResizable(false);
     }
 
