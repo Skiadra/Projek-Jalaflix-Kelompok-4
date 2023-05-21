@@ -1,6 +1,3 @@
-The B
-The C
-The F
 The X
-The Z
-The F
+FFS
+Kotak Menyala

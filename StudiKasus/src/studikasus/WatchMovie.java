@@ -11,13 +11,15 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author User
  */
 public class WatchMovie extends javax.swing.JFrame {
-    String kategori;
+    String[] data = new String[5];
+    int umur;
     Film[] listFilm = new Film[100];
     int jumlahFilm = 0;
     String[] p = new String[10];
@@ -25,8 +27,9 @@ public class WatchMovie extends javax.swing.JFrame {
     /**
      * Creates new form WatchMovie
      */
-    public WatchMovie(String kategori) {
-        this.kategori = kategori;
+    public WatchMovie(String[] data, int umur) {
+        this.data = data;
+        this.umur = umur;
         initComponents();
         this.setLocationRelativeTo(null);
         addWindowListener(new WatchMovie.CustomWindowAdapter(this));
@@ -39,12 +42,12 @@ public class WatchMovie extends javax.swing.JFrame {
         for (int i = 0; i < listFilm.length; i++) {
             if (listFilm[i] != null) {
                 //Check Kondisi Kategori Pelanggan
-                if (kategori.equalsIgnoreCase("reguler")) {
+                if (data[4].equalsIgnoreCase("reguler")) {
                     if (listFilm[i].getFilmDetail(5).equalsIgnoreCase("reguler")) namaFilm[counter++] = listFilm[i].getFilmDetail(0);
-                } else if (kategori.equalsIgnoreCase("gold")) {
+                } else if (data[4].equalsIgnoreCase("gold")) {
                     if (listFilm[i].getFilmDetail(5).equalsIgnoreCase("reguler") || listFilm[i].getFilmDetail(5).equalsIgnoreCase("new"))
                         namaFilm[counter++] = listFilm[i].getFilmDetail(0);                          
-                } else if (kategori.equalsIgnoreCase("platinum")) {
+                } else if (data[4].equalsIgnoreCase("platinum")) {
                     namaFilm[counter++] = listFilm[i].getFilmDetail(0);
                 }
             } else {
@@ -60,6 +63,28 @@ public class WatchMovie extends javax.swing.JFrame {
         jLabel9.setText(listFilm[0].getFilmDetail(3));
         jLabel10.setText(listFilm[0].getFilmDetail(4));
         this.setResizable(false);
+    }
+    
+    private void saveHistori() {
+        String path = new File("").getAbsolutePath()+ "\\src\\studikasus\\HistoriFilm.txt";
+        File myFile = new File(path);
+
+        try {
+            String temp = "";
+            FileWriter fw = new FileWriter(myFile);
+            BufferedWriter bw = new BufferedWriter(fw);
+            for (int i = 0; i < p.length; i++) {
+                if (p[i]!=null) {
+                    temp += p[i] + "\n";
+                    System.out.println(p[i]);
+                }
+            }
+            bw.write(temp);
+            bw.close();
+            fw.close();
+        } catch (Exception f) {
+
+        }
     }
 
     /**
@@ -87,6 +112,7 @@ public class WatchMovie extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -169,16 +195,17 @@ public class WatchMovie extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Sinopsis                     ->");
 
+        jButton2.setText("Back");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(CB, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addGap(153, 153, 153))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -191,7 +218,7 @@ public class WatchMovie extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(77, 77, 77)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE))
+                                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(77, 77, 77)
@@ -201,10 +228,19 @@ public class WatchMovie extends javax.swing.JFrame {
                         .addComponent(jLabel6)
                         .addGap(79, 79, 79)
                         .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addContainerGap(170, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(270, 270, 270)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(270, 270, 270)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(89, 89, 89)
+                        .addComponent(CB, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -214,29 +250,31 @@ public class WatchMovie extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1)
+                        .addComponent(jButton2))
                     .addComponent(CB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(jLabel10))
                 .addContainerGap(78, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel3);
-        jPanel3.setBounds(0, 90, 774, 296);
+        jPanel3.setBounds(0, 90, 765, 305);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -262,12 +300,12 @@ public class WatchMovie extends javax.swing.JFrame {
                         System.out.println(listFilm[i].getFilmDetail(5));
                         
                         //Check Kondisi Kategori Pelanggan
-                        if (kategori.equalsIgnoreCase("reguler")) {
+                        if (data[4].equalsIgnoreCase("reguler")) {
                             if (listFilm[i].getFilmDetail(5).equalsIgnoreCase("reguler")) jumlahFilm++;
-                        } else if (kategori.equalsIgnoreCase("gold")) {
+                        } else if (data[4].equalsIgnoreCase("gold")) {
                             if (listFilm[i].getFilmDetail(5).equalsIgnoreCase("reguler") || listFilm[i].getFilmDetail(5).equalsIgnoreCase("new"))
                                 jumlahFilm++;                            
-                        } else if (kategori.equalsIgnoreCase("platinum")) {
+                        } else if (data[4].equalsIgnoreCase("platinum")) {
                             jumlahFilm++;
                         }
                         break;
@@ -313,7 +351,15 @@ public class WatchMovie extends javax.swing.JFrame {
             }
             p[9] = (String)CB.getSelectedItem();
         }
+        JOptionPane.showMessageDialog(this, "Menonton!");
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        MainMenu mm = new MainMenu(data, umur);
+        mm.setVisible(true);
+        saveHistori();
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -361,25 +407,7 @@ public class WatchMovie extends javax.swing.JFrame {
  
         // implement windowClosing method
         public void windowClosing(WindowEvent e) {
-            String path = new File("").getAbsolutePath()+ "\\src\\studikasus\\HistoriFilm.txt";
-            File myFile = new File(path);
-            
-            try {
-                String temp = "";
-                FileWriter fw = new FileWriter(myFile);
-                BufferedWriter bw = new BufferedWriter(fw);
-                for (int i = 0; i < p.length; i++) {
-                    if (p[i]!=null) {
-                        temp += p[i] + "\n";
-                        System.out.println(p[i]);
-                    }
-                }
-                bw.write(temp);
-                bw.close();
-                fw.close();
-            } catch (Exception f) {
-                
-            } 
+            saveHistori();
             
             window.dispose();
         }
@@ -389,6 +417,7 @@ public class WatchMovie extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CB;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
