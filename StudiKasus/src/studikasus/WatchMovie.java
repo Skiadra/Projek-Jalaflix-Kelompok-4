@@ -274,7 +274,7 @@ public class WatchMovie extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel3);
-        jPanel3.setBounds(0, 90, 765, 305);
+        jPanel3.setBounds(0, 90, 756, 296);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
