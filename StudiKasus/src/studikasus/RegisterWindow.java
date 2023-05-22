@@ -319,12 +319,14 @@ public class RegisterWindow extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+
         MainWindow mw = new MainWindow();
         mw.setVisible(true);
         mw.pack();
         mw.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         
         this.dispose();
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
