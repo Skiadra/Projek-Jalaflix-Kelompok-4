@@ -63,7 +63,7 @@ public class MainMenu extends javax.swing.JFrame {
             BufferedReader br = new BufferedReader(fr);
             String line;
             while ((line = br.readLine()) != null) {
-                if (!line.contains(dataAkun[0])) {
+                if (!line.contains(dataAkun[2])) {
                     temp += line;
                     temp += "\n";
                 }
@@ -301,26 +301,26 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         String path = new File("").getAbsolutePath()+ "\\src\\studikasus\\HistoriFilm.txt";
-            File myFile = new File(path);
-            String temp = "";
-            try {
-                FileReader fr = new FileReader(myFile);
-                BufferedReader br = new BufferedReader(fr);
-                String line;
-                while ((line = br.readLine()) != null) {
-                    if (line.equalsIgnoreCase(dataAkun[1])) {
-                        temp = br.readLine();
-                        temp = temp.trim();
-                    }
+        File myFile = new File(path);
+        String temp = "";
+        try {
+            FileReader fr = new FileReader(myFile);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.equalsIgnoreCase(dataAkun[1])) {
+                    temp = br.readLine();
+                    temp = temp.trim();
                 }
-                br.close();
-                fr.close();
-            } catch (Exception f) {
-                System.out.println("An error occurred.");
-                f.printStackTrace();
             }
-            
-            JOptionPane.showMessageDialog(this, temp, "Histori", JOptionPane.INFORMATION_MESSAGE);
+            br.close();
+            fr.close();
+        } catch (Exception f) {
+            System.out.println("An error occurred.");
+            f.printStackTrace();
+        }
+
+        JOptionPane.showMessageDialog(this, temp, "Histori", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

@@ -28,9 +28,9 @@ public class Film {
 
     private void checkKategori() {
         if (2023 - Integer.parseInt(filmDetail[2]) > 5) {
-            filmDetail[5] = "NEW";
-        } else {
             filmDetail[5] = "REGULER";
+        } else {
+            filmDetail[5] = "NEW";
         }
     }
     

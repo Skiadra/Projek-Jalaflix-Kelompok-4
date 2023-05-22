@@ -307,7 +307,7 @@ public class MainWindow extends javax.swing.JFrame {
             this.jTextField2.setText("");
             this.jTextField3.setText("");
             this.dispose();
-        }else if (masuk && aktif == false){
+        } else if (masuk && aktif == false){
             JOptionPane.showMessageDialog(this, "Akun Tidak AKTIF");
         } else {
             JOptionPane.showMessageDialog(this, "Akun Tidak Ditemukan");

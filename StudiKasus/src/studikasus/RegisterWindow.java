@@ -308,8 +308,10 @@ public class RegisterWindow extends javax.swing.JFrame {
         try {
             FileWriter fw = new FileWriter(myFile);
             BufferedWriter bw = new BufferedWriter(fw);
+            
             hasil += data[0] + " " + data[1] + " " + data[2] + " AKTIF " + data[3] + "\n";
             bw.write(hasil);
+            
             bw.close();
             fw.close();
         } catch (Exception f) {
