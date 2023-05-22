@@ -1,6 +1,6 @@
-ZYDAN
-B, Kotak Menyala, The Z, The X, 
 APIK
 A, Kotak Menyala, The F, FFS, 
 ADI
 PENTAKOSTA, SHREK, The A, The C, The Z, The B, The X, Kotak Menyala, PENTAKOSTA, SHREK, 
+ZYDAN
+B, Kotak Menyala, The Z, The X, The A, The F, The Z, SHREK 2, SHREK, 

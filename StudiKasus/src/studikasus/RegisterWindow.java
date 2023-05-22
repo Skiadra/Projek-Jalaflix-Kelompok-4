@@ -321,6 +321,7 @@ public class RegisterWindow extends javax.swing.JFrame {
         jTextField2.setText("");
         jTextField3.setText("");
         jTextField4.setText("");
+        buttonGroup1.clearSelection();
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
