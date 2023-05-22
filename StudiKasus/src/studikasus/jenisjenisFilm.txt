@@ -6,3 +6,5 @@ The F, Komedi, 2018, 167, Seru
 The Z, Komedi, 2015, 167, Seru
 The X, Rohani, 2000, 167, Seru
 FFS, Rohani, 2000, 167, Seru, Ori
+PENTAKOSTA, ROHANI, 1801, 150, SERU
+SHREK, PSYCHOLOGICAL, 1841, 305, SERU

@@ -22,6 +22,12 @@ public class AdminMenu extends javax.swing.JFrame {
      */
     public AdminMenu() {
         initComponents();
+        jTextField2.setText(null);
+        jTextField1.setText(null);
+        jTextField4.setText(null);
+        jTextField5.setText(null);
+        jTextField6.setText(null);
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -52,6 +58,8 @@ public class AdminMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Admin Menu");
+        setPreferredSize(new java.awt.Dimension(360, 470));
+        setResizable(false);
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 51));
@@ -82,6 +90,7 @@ public class AdminMenu extends javax.swing.JFrame {
         jPanel1.setBounds(0, 0, 360, 90);
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel2.setPreferredSize(new java.awt.Dimension(360, 350));
 
         jLabel1.setFont(new java.awt.Font("Georgia", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -197,9 +206,9 @@ public class AdminMenu extends javax.swing.JFrame {
                                             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
                                             .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                                            .addComponent(jTextField5))))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(128, 128, 128)
@@ -236,7 +245,7 @@ public class AdminMenu extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
@@ -258,6 +267,65 @@ public class AdminMenu extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        String[] data = new String[5];
+        data[0] = jTextField2.getText().toUpperCase();
+        data[1] = jTextField1.getText().toUpperCase();
+        data[2] = jTextField4.getText().toUpperCase();
+        data[3] = jTextField5.getText().toUpperCase();
+        data[4] = jTextField6.getText().toUpperCase();
+        
+        for (int i = 0; i < data.length; i++) {
+            if (data[i].equalsIgnoreCase("")) {
+                JOptionPane.showMessageDialog(this, "Isi semua!");
+                return;
+            }
+        }
+      
+        String path = new File("").getAbsolutePath()+ "\\src\\studikasus\\jenisjenisFilm.txt";
+        File myFile = new File(path);
+        String hasil= "";
+        
+        try {
+            FileReader fr = new FileReader(myFile);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                hasil += line + "\n";
+                String[] dataRN = line.split(", ");
+
+                if (dataRN[0].equalsIgnoreCase(data[0])) {
+                    JOptionPane.showMessageDialog(this, "Film sudah terdaftar!");
+                    br.close();
+                    fr.close();
+                    return;
+                }
+            }
+            
+            br.close();
+            fr.close();
+        } catch (Exception e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        
+        
+        try {
+            FileWriter fw = new FileWriter(myFile);
+            BufferedWriter bw = new BufferedWriter(fw);
+            hasil += data[0] + ", " + data[1] + ", " + data[2] + ", " + data[3] + ", " + data[4] + "\n";
+            bw.write(hasil);
+            bw.close();
+            fw.close();
+        } catch (Exception f) {
+
+        }
+        
+        JOptionPane.showMessageDialog(this, "Registrasi Berhasil");
+        jTextField2.setText(null);
+        jTextField1.setText(null);
+        jTextField4.setText(null);
+        jTextField5.setText(null);
+        jTextField6.setText(null);
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -280,67 +348,13 @@ public class AdminMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField6ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        String[] data = new String[4];
-        data[0] = jTextField2.getText().toUpperCase();
-        data[1] = jTextField1.getText().toUpperCase();
-        data[2] = jTextField4.getText().toUpperCase();
-        data[3] = jTextField5.getText().toUpperCase();
-        data[4] = jTextField5.getText().toUpperCase();
+        MainWindow mw = new MainWindow();
+        mw.setVisible(true);
+        mw.pack();
         
-        if (data[5] == null) {
-            JOptionPane.showMessageDialog(this, "Tolong Isi Data Film");
-            return;
-        }
-      
-        String path = new File("").getAbsolutePath()+ "\\src\\studikasus\\jenisjenisFilm.txt";
-        File myFile = new File(path);
-        String hasil= "";
-        
-        try {
-            FileReader fr = new FileReader(myFile);
-            BufferedReader br = new BufferedReader(fr);
-            String line;
-            while ((line = br.readLine()) != null) {
-                hasil += line + "\n";
-                String[] dataRN = line.split(" ");
-
-                if (dataRN[2].equalsIgnoreCase(data[2])) {
-                    JOptionPane.showMessageDialog(this, "Nomor Handphone Sudah Terdaftar!");
-                    br.close();
-                    fr.close();
-                    return;
-                }
-            }
-            
-            br.close();
-            fr.close();
-        } catch (Exception e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-        
-        
-        
-        try {
-            FileWriter fw = new FileWriter(myFile);
-            BufferedWriter bw = new BufferedWriter(fw);
-            hasil += data[0] + " " + data[1] + " " + data[2] + " AKTIF " + data[3] + "\n";
-            bw.write(hasil);
-            bw.close();
-            fw.close();
-        } catch (Exception f) {
-
-        }
-        
-        JOptionPane.showMessageDialog(rootPane, "Registrasi Berhasil");
         this.dispose();
         
-    }                                        
-
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
-    }                                           
+    }                                                                     
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:

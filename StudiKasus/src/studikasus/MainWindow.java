@@ -17,7 +17,6 @@ import javax.swing.JPasswordField;
  * @author riady
  */
 public class MainWindow extends javax.swing.JFrame {
-    private MainMenu mainMenu;
     private String[] dataAkun = {};
 
     /**
@@ -73,7 +72,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("STLiti", 3, 36)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("JALAFlIX");
+        jLabel4.setText("JALAFLIX");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -81,13 +80,13 @@ public class MainWindow extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(353, 353, 353)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(402, Short.MAX_VALUE))
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(374, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
+                .addContainerGap(29, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addGap(28, 28, 28))
         );
@@ -257,11 +256,7 @@ public class MainWindow extends javax.swing.JFrame {
         String userID = toString(this.jPasswordField1.getPassword());
         String nama = this.jTextField2.getText();
         String kategori = "";
-        try {
-            int umur = Integer.parseInt(this.jTextField3.getText());
-        } catch (Exception e) {
-            
-        }
+        int umur = Integer.parseInt(this.jTextField3.getText());
         boolean masuk = false;
         boolean admin = false;
         boolean aktif = false;

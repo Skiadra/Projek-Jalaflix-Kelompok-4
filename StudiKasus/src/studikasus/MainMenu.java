@@ -46,7 +46,7 @@ public class MainMenu extends javax.swing.JFrame {
                 case "platinum": pel = new Platinum(Integer.parseInt(dataAkun[0]), dataAkun[1], umur, dataAkun[2], dataAkun[3]);break;
             }
         } catch (UmurNegatifException e) {
-            
+            JOptionPane.showMessageDialog(this, "Umur Negatif!");
         }
         jLabel5.setText(pel.kategoriPel.toUpperCase());
         dataAkun[4] = pel.kategoriPel.toUpperCase();
@@ -308,8 +308,10 @@ public class MainMenu extends javax.swing.JFrame {
                 BufferedReader br = new BufferedReader(fr);
                 String line;
                 while ((line = br.readLine()) != null) {
-                    temp += line;
-                    temp += ", ";
+                    if (line.equalsIgnoreCase(dataAkun[1])) {
+                        temp = br.readLine();
+                        temp = temp.trim();
+                    }
                 }
                 br.close();
                 fr.close();

@@ -138,7 +138,7 @@ public class RegisterWindow extends javax.swing.JFrame {
         });
 
         jTextField3.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jTextField3.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField3.setForeground(new java.awt.Color(51, 51, 51));
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField3ActionPerformed(evt);
@@ -146,7 +146,7 @@ public class RegisterWindow extends javax.swing.JFrame {
         });
 
         jTextField4.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jTextField4.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField4.setForeground(new java.awt.Color(51, 51, 51));
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
@@ -154,7 +154,7 @@ public class RegisterWindow extends javax.swing.JFrame {
         });
 
         jTextField2.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField2.setForeground(new java.awt.Color(51, 51, 51));
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
@@ -258,6 +258,13 @@ public class RegisterWindow extends javax.swing.JFrame {
         else if (jRadioButton2.isSelected()) data[3] = jRadioButton2.getText().toUpperCase();
         else if (jRadioButton3.isSelected()) data[3] = jRadioButton3.getText().toUpperCase();
         
+        for (int i = 0; i < 3; i++) {
+            if (data[i].equalsIgnoreCase("")) {
+                JOptionPane.showMessageDialog(this, "Isi semua!");
+                return;
+            }
+        }
+        
         if (data[3] == null) {
             JOptionPane.showMessageDialog(this, "Tolong Pilih Kategori");
             return;
@@ -267,6 +274,7 @@ public class RegisterWindow extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "User Code tidak lebih dari 4");
             return;
         }
+        
         
         String path = new File("").getAbsolutePath()+ "\\src\\studikasus\\Akun.txt";
         File myFile = new File(path);
@@ -309,7 +317,10 @@ public class RegisterWindow extends javax.swing.JFrame {
         }
         
         JOptionPane.showMessageDialog(rootPane, "Registrasi Berhasil");
-        this.dispose();
+        
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jTextField4.setText("");
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -323,7 +334,6 @@ public class RegisterWindow extends javax.swing.JFrame {
         MainWindow mw = new MainWindow();
         mw.setVisible(true);
         mw.pack();
-        mw.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         
         this.dispose();
 

@@ -62,28 +62,80 @@ public class WatchMovie extends javax.swing.JFrame {
         jLabel8.setText(listFilm[0].getFilmDetail(2));
         jLabel9.setText(listFilm[0].getFilmDetail(3));
         jLabel10.setText(listFilm[0].getFilmDetail(4));
+        
+        //Read previous History
+        readHistori();
         this.setResizable(false);
     }
     
     private void saveHistori() {
         String path = new File("").getAbsolutePath()+ "\\src\\studikasus\\HistoriFilm.txt";
         File myFile = new File(path);
-
+        boolean ada = false;
+        String hasil = "";
+        
         try {
-            String temp = "";
+            FileReader fr = new FileReader(myFile);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            
+            while ((line = br.readLine()) != null) {
+                if (line.equalsIgnoreCase(data[1])) {
+                    br.readLine();
+                } else {
+                    hasil += line + "\n";
+                }
+            }
+
+        } catch (Exception e) {
+            
+        }
+        
+        try {
+            hasil += data[1].toUpperCase() + "\n";
             FileWriter fw = new FileWriter(myFile);
             BufferedWriter bw = new BufferedWriter(fw);
             for (int i = 0; i < p.length; i++) {
                 if (p[i]!=null) {
-                    temp += p[i] + "\n";
-                    System.out.println(p[i]);
+                    hasil += p[i] + ", ";
                 }
             }
-            bw.write(temp);
+            hasil += "\n";
+            bw.write(hasil);
             bw.close();
             fw.close();
         } catch (Exception f) {
 
+        }
+
+    }
+    
+    
+    private void readHistori() {
+        String path = new File("").getAbsolutePath()+ "\\src\\studikasus\\HistoriFilm.txt";
+        File myFile = new File(path);
+        
+        try {
+            FileReader fr = new FileReader(myFile);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            
+            while ((line = br.readLine()) != null) {
+                if (line.equalsIgnoreCase(data[1])) {
+                    String historiLama = br.readLine();
+                    String[] temp = historiLama.split(", ");
+                    for (int i = 0; i < temp.length; i++) {
+                        p[i] = temp[i];
+                    }
+                }
+            }
+            for (int i = 0; i < p.length; i++) {
+                System.out.print(p[i] + " ");  
+            }
+            br.close();
+            fr.close();
+        } catch (Exception e) {
+            
         }
     }
 
@@ -274,7 +326,7 @@ public class WatchMovie extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel3);
-        jPanel3.setBounds(0, 90, 756, 296);
+        jPanel3.setBounds(0, 90, 756, 305);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
